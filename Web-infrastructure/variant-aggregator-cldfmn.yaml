@@ -1,0 +1,19 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >  
+  This template sets up the network infrastructure & Iam permissions for the variant aggregator web 
+  application that is to be hosted & deployed.
+
+Resources:
+  # vpc with private subnet to host Rds database
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      Tags:
+        - Key: stack
+          Value: variant-aggregator
+      CidrBlock:
+        - 173.0.0.0/16
+      EnableDnsSupport: false
+      EnableDnsHostnames: false
+  # iam  
