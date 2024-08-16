@@ -2,7 +2,53 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: >  
   This template sets up the network infrastructure & Iam permissions for the variant aggregator web 
-  application that is to be hosted & deployed.
+  application that is to be hosted & deployed. For security reason & in keeping with best practices, 
+  the Rds instance will be placed within a private subnet. The Api gateway will be given permission
+  to invoke the lambda functions that will interact with the Rds database. 
+  
+  Written by - Jeremy Ng (Contact at jeremy.ng.w.k@sgh.com.sg/jeremy.ng.wk@duke-nus.edu.sg)
+  
+Parameters:
+  ApiGatewayName:
+    Type: String
+    Description: Name of the Api Gateway
+    Default: variant-aggregator-api
+  ApiGatewayStageName:
+    Type: String
+    Description: Name of the Api Gateway Stage
+    Default: staging
+  ApiGatewayDeploymentName:
+    Type: String
+    Description: Name of the Api Gateway Deployment
+    Default: prod
+  MySqlLayerArn:
+    Type: String
+    Description: Arn of MySql layer for interacting with Rds database
+    Default: variant-aggregator-mysql
+  DatabaseName:
+    Type: String
+    Description: Name of the Rds database
+    Default: variant_aggregator
+  ClinvarTableName:
+    Type: String
+    Description: Name of the Clinvar table in the Rds database
+    Default: clinvar
+  RdsInstanceType:
+    Type: String
+    Description: Type of Rds instance
+    Default: db.t2.micro
+  RdsInstanceStorage:
+    Type: Number
+    Description: Storage capacity of Rds instance in Gb
+    Default: 20
+  RdsUsername:
+    Type: String
+    NoEcho: true
+    Description: Admin username for Rds database
+  RdsPassword:
+    Type: String
+    NoEcho: true
+    Description: Admin password for Rds database
 
 Resources:
   # vpc with private subnet to host Rds database
@@ -16,4 +62,33 @@ Resources:
         - 173.0.0.0/16
       EnableDnsSupport: false
       EnableDnsHostnames: false
-  # iam  
+
+  # iam  role for Api gateway to invoke lambda functions
+  ApiGatewayRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: variant-aggregator-api-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: "apigateway.amazonaws.com"
+            Action: "sts:AssumeRole"
+      Policies:
+        - PolicyName: variant-aggregator-api-policy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "lambda:InvokeFunction"
+                Resource: "*"
+
+  # Api gateway to invoke lambda functions
+  ApiGateway:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: !Ref ApiGatewayName
+  
+  # Rds
