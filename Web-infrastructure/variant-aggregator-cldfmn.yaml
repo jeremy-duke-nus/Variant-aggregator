@@ -7,7 +7,7 @@ Description: >
   to invoke the lambda functions that will interact with the Rds database. 
   
   Written by - Jeremy Ng (Contact at jeremy.ng.w.k@sgh.com.sg/jeremy.ng.wk@duke-nus.edu.sg)
-  
+
 Parameters:
   ApiGatewayName:
     Type: String
@@ -92,3 +92,28 @@ Resources:
       Name: !Ref ApiGatewayName
   
   # Rds
+  Rds:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: variant-aggregator-rds
+      DBInstanceClass: !Ref RdsInstanceType
+      AllocatedStorage: !Ref RdsInstanceStorage
+      Engine: mysql
+      EngineVersion: 5.7
+      MasterUsername: !Ref RdsUsername
+      MasterUserPassword: !Ref RdsPassword
+      DBName: !Ref DatabaseName
+      VPCSecurityGroups:
+        - !GetAtt RdsSecurityGroup.GroupId
+      DBSubnetGroupName: !Ref RdsSubnetGroup
+      PubliclyAccessible: false
+      Tags:
+        - Key: stack
+          Value: variant-aggregator
+Outputs:
+  VPCId:
+    Value: !Ref VPC
+    Description: VPC Id
+  RdsDns:
+    Value: !GetAtt Rds.Endpoint.Address
+    Description: Rds endpoint
