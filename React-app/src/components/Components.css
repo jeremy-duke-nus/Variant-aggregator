@@ -1,0 +1,7 @@
+.button-container {
+    padding-left: 2rem;
+}
+
+:user-invalid {
+    border: 2px solid red;
+}
