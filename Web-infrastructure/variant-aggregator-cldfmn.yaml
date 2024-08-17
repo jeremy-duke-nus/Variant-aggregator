@@ -4,7 +4,8 @@ Description: >
   This template sets up the network infrastructure & Iam permissions for the variant aggregator web 
   application that is to be hosted & deployed. For security reason & in keeping with best practices, 
   the Rds instance will be placed within a private subnet. The Api gateway will be given permission
-  to invoke the lambda functions that will interact with the Rds database. 
+  to invoke the lambda functions that will interact with the Rds database. An Ec2 instance hosted behind
+  an Alb will be used to update the database. 
   
   Written by - Jeremy Ng (Contact at jeremy.ng.w.k@sgh.com.sg/jeremy.ng.wk@duke-nus.edu.sg)
 
@@ -51,19 +52,134 @@ Parameters:
     Description: Admin password for Rds database
 
 Resources:
-  # vpc with private subnet to host Rds database
+  # vpc with private & public subnets
   VPC:
     Type: AWS::EC2::VPC
     Properties:
       Tags:
-        - Key: stack
-          Value: variant-aggregator
+        - Key: Name
+          Value: Rds Vpc
       CidrBlock:
         - 173.0.0.0/16
       EnableDnsSupport: false
       EnableDnsHostnames: false
 
-  # iam  role for Api gateway to invoke lambda functions
+  # internet gateway
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Rds Internet Gateway
+
+  # igw attachment
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+
+  # subnets
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: '173.0.1.0/24'
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: 'Private subnet 1'
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: '173.0.2.0/24'
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: 'Private subnet 2'
+  
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: '173.0.3.0/24'
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: 'Public subnet 1'
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: '173.0.4.0/24'
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: 'Public subnet 2'
+  
+  # route table
+  PublicRouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: 'public-rt'
+  PrivateRouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: 'private-rt'
+
+  PublicSubnet1RouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref PublicSubnet1
+      RouteTableId: !Ref PublicRouteTable
+  PublicSubnet2RouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref PublicSubnet2
+      RouteTableId: !Ref PublicRouteTable
+  PrivateSubnet1RouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref PrivateSubnet1
+      RouteTableId: !Ref PrivateRouteTable
+  PrivateSubnet2RouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref PrivateSubnet2
+      RouteTableId: !Ref PrivateRouteTable  
+
+  PublicRoute:
+    Type: 'AWS::EC2::Route'
+    DependsOn:
+      - InternetGateway
+      - PublicRouteTable
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref InternetGateway
+  PrivateRoute:
+    Type: 'AWS::EC2::Route'
+    DependsOn:
+      - NatGateway
+      - PrivateRouteTable
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      DestinationCidrBlock: '0.0.0.0/0'
+      NatGatewayId: !Ref NatGateway
+  # security groups 
+
+  # iam roles
   ApiGatewayRole:
     Type: AWS::IAM::Role
     Properties:
@@ -85,7 +201,7 @@ Resources:
                   - "lambda:InvokeFunction"
                 Resource: "*"
 
-  # Api gateway to invoke lambda functions
+  # Api gateway 
   ApiGateway:
     Type: AWS::ApiGateway::RestApi
     Properties:
