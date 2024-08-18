@@ -1,13 +1,25 @@
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Components.css";
 
-function Form({ handleSubmit }) {
+function Form({ setSubmission }) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const Var = {
+      chromosome: event.target.chromosome.value,
+      position: event.target.position.value,
+      reference: event.target.reference.value,
+      alternate: event.target.alternate.value,
+    };
+    setSubmission(Var);
+  };
+
   return (
     <>
-      <div className="container">
+      <div className="container" key="search-container">
         <div className="row mt-4" key="search-form">
           <form onSubmit={handleSubmit}>
-            <div className="row">
+            <div className="row" key="form-content">
               <div className="col-md-2 mb-2">
                 <select className="form-select" id="chromosome" required>
                   {Array.from({ length: 22 }, (_, index) => (
