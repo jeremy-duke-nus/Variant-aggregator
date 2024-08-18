@@ -9,7 +9,7 @@ function Form({ submitQuery }) {
     submitQuery(data);
   };
 
-  const textInputs = ["Position", "Reference", "Alternate"];
+  const textInputs = ["Reference", "Alternate"];
 
   return (
     <>
@@ -30,13 +30,27 @@ function Form({ submitQuery }) {
                 </select>
               </div>
 
+              <div className="col-md-2 mb-2">
+                <input
+                  type="text"
+                  className={"form-control"}
+                  placeholder="Position"
+                  {...register("Position", {
+                    required: true,
+                    pattern: /^[0-9]*$/,
+                  })}
+                />
+              </div>
               {textInputs.map((input) => (
                 <div className="col-md-2 mb-2">
                   <input
                     type="text"
                     className="form-control"
                     placeholder={input}
-                    {...register(input, { required: true })}
+                    {...register(input, {
+                      required: true,
+                      pattern: /^[AaTtCcGg]*$/,
+                    })}
                   />
                 </div>
               ))}
