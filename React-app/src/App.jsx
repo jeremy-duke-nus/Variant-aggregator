@@ -1,22 +1,13 @@
 import "./App.css";
 import Form from "./components/form";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 function App() {
-  const [query, setQuery] = useState({
-    chromosome: "",
-    position: "",
-    reference: "",
-    alternate: "",
-  });
-
-  function handleChild(variant) {
-    setQuery(variant);
-  }
+  const [query, setQuery] = useState({});
 
   return (
     <>
-      <Form setSubmission={handleChild} />
+      <Form submitQuery={setQuery} />
     </>
   );
 }
