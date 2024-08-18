@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -12,12 +12,13 @@ function Form({ submitQuery }) {
 
   return (
     <>
-      <div className="container" key="search-container">
-        <div className="row mt-4" key="search-form">
+      <div className="container" key="_search-container">
+        <div className="row mt-4" key="_form-row">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="row" key="form-content">
+            <div className="row" key="_form-content">
               <div className="col-md-2 mb-2">
                 <select
+                  key="_chromosome"
                   className="form-select"
                   {...register("chromosome", { required: true })}
                 >
@@ -32,6 +33,7 @@ function Form({ submitQuery }) {
               <div className="col-md-2 mb-2">
                 <input
                   type="text"
+                  key="_Position"
                   className={"form-control"}
                   placeholder="Position"
                   {...register("Position", {
@@ -43,6 +45,7 @@ function Form({ submitQuery }) {
               {textInputs.map((input) => (
                 <div className="col-md-2 mb-2">
                   <input
+                    key="_${input}"
                     type="text"
                     className="form-control"
                     placeholder={input}
