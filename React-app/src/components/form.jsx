@@ -3,16 +3,26 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Components.css";
 
 function Form({ setSubmission }) {
+  const [variant, setVariant] = useState({
+    chromosome: "",
+    position: "",
+    reference: "",
+    alternate: "",
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const Var = {
       chromosome: event.target.chromosome.value,
-      position: event.target.position.value,
-      reference: event.target.reference.value,
-      alternate: event.target.alternate.value,
+      position: event.target.Position.value,
+      reference: event.target.Reference.value,
+      alternate: event.target.Variant.value,
     };
-    setSubmission(Var);
+    setVariant(Var);
+    setSubmission(variant);
   };
+
+  const TextInputFields = ["Position", "Reference", "Variant"];
 
   return (
     <>
@@ -29,33 +39,21 @@ function Form({ setSubmission }) {
                   <option value="chrY">chrY</option>
                 </select>
               </div>
-              <div className="col-md-2 mb-2">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="position"
-                  placeholder="Position"
-                  required
-                />
-              </div>
-              <div className="col-md-3 mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="reference"
-                  placeholder="Reference"
-                  required
-                />
-              </div>
-              <div className="col-md-3 mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="alternate"
-                  placeholder="Variant"
-                  required
-                />
-              </div>
+
+              {TextInputFields.map((fieldName) => {
+                return (
+                  <div className="col-md-2 mb-2">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id={fieldName}
+                      placeholder={fieldName}
+                      required
+                    />
+                  </div>
+                );
+              })}
+
               <div className="col-md-2 mb-2">
                 <div className="col-md-2 mb-2 button-container">
                   <div className="d-flex flex-column align-items-center">
