@@ -1,0 +1,49 @@
+.cols {
+    display: flex;    
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.left-col, .right-col {
+    flex: 1;
+}
+
+.left-col .card {
+    height: calc(50% - 1rem);
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.right-col .card {
+    width: 100%;
+    padding: .5rem;
+    margin-left: 1rem;
+    height: calc(100% - 1rem);
+}
+
+.danger {
+    color: red
+}
+
+.verdict {
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 768px) {
+    .cols {
+        flex-direction: column;
+    }
+    .left-col .card {
+        width: 100%;
+        padding: 1rem;
+        margin-bottom: 0.2rem;
+        font-size: 0.75rem;
+    }
+    
+    .right-col .card {
+        width: 100%;
+        padding: 1rem;
+        font-size: 0.75rem;
+    }
+}

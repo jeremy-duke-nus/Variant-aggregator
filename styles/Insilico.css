@@ -1,0 +1,10 @@
+.tab-content {
+    width: 99%;
+    margin-left: .5%;
+    padding-top: 1rem;
+}
+
+.pathogenic {
+    color: red;
+    font-weight: bold;
+}

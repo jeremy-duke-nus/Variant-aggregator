@@ -1,0 +1,23 @@
+.h2-error {
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.pagination button {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem
+}
+
+.table {
+    width: 95%;
+}
+
+@media screen and (max-width: 768px) {
+    .table {
+        font-size: 0.45rem
+    }
+    
+    .pagination {
+        font-size: 0.45rem
+    }
+}

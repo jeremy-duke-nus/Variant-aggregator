@@ -1,5 +1,8 @@
-# Variant Aggregator
-Simple web application deployed to help scientists curate &amp; classify variants from next-generation sequencing panels.
+# React + Vite
 
-# Contact
-For inclusion of new resources, please contact me at jeremy.ng.w.k@sgh.com.sg
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh

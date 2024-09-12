@@ -1,0 +1,73 @@
+import React from "react";
+import { useForm } from "react-hook-form";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+function Form({ submitQuery }) {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    submitQuery(data);
+  };
+
+  const textInputs = ["Reference", "Alternate"];
+
+  return (
+    <>
+      <div className="container" key="_search-container">
+        <div className="row mt-4" key="_form-row">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="row" key="_form-content">
+              <div className="col-md-2 mb-2">
+                <select
+                  key="_chromosome"
+                  className="form-select"
+                  {...register("chromosome", { required: true })}
+                >
+                  {Array.from({ length: 22 }, (_, index) => (
+                    <option value={`chr${index + 1}`}>chr{index + 1}</option>
+                  ))}
+                  <option value="chrX">chrX</option>
+                  <option value="chrY">chrY</option>
+                </select>
+              </div>
+
+              <div className="col-md-2 mb-2">
+                <input
+                  type="text"
+                  key="_Position"
+                  className={"form-control"}
+                  placeholder="Position"
+                  {...register("Position", {
+                    required: true,
+                    pattern: /^[0-9]*$/,
+                  })}
+                />
+              </div>
+              {textInputs.map((input) => (
+                <div className="col-md-2 mb-2">
+                  <input
+                    key="_${input}"
+                    type="text"
+                    className="form-control"
+                    placeholder={input}
+                    {...register(input, {
+                      required: true,
+                      pattern: /^[AaTtCcGg]*$/,
+                    })}
+                  />
+                </div>
+              ))}
+
+              <div className="col-md-2 mb-2">
+                <button type="submit" className="btn btn-primary">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default Form;

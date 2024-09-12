@@ -1,0 +1,59 @@
+.card-title {
+    font-size: 2.5rem;
+}
+
+.gnomad-af {
+    font-size: 1.2rem;
+}
+
+.cards {
+    display: flex;
+    width: 99%;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    justify-content: space-between;
+}
+
+.card {
+    flex: 0 0 calc(25% - 10px); /* Adjust as needed */
+    border-color: black;
+    width: fit-content;
+    margin: 1.5px;
+    background-color: lightgrey;
+    border-style: dashed;
+}
+
+.full-card {
+    flex: 0 0 calc(50% - 4.5px); /* Adjust as needed */
+    border-color: black;
+    width: fit-content;
+    margin: 1.5px;
+    background-color: lightskyblue;
+    border-style: dashed;
+    padding-left: 1%;
+    padding-top: 0.5%;
+    font-size: 1.5rem;
+}
+
+.pathogenic-population {
+    background-color: coral;
+    color: black
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        flex: 0 0 calc(50% - 5px) ; /* Adjust as needed */
+        margin: 0.1px;
+        font-size: 0.5rem;
+    }
+    .full-card {
+        flex: 0 0 100%; /* Adjust as needed */
+        margin: 0.1rem;
+        border-radius: 0;
+    }
+
+    p {
+        font-size: 0.75rem;
+    }
+    
+}

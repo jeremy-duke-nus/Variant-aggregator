@@ -1,0 +1,10 @@
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #ECECEC;
+    font-size: 2rem;
+    color: black;
+    height: 10vh;
+}
