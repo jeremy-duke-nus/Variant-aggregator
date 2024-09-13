@@ -75,7 +75,7 @@ const Insilico = ({ searchData }) => {
     setError(null);
     try {
       const response = await fetch(
-        `https://0o7ehpwg62.execute-api.ap-southeast-1.amazonaws.com/prod/insilico-v2?hgvsg=${searchData.notation}`
+        `https://3puvk2tojb.execute-api.ap-southeast-1.amazonaws.com/prod/Vep?hgvsg=${searchData.notation}`
       );
       const data = await response.json();
       if (data.error) {
