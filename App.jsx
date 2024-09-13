@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Row, Card } from "react-bootstrap";
 import AppHeader from "./components/Header";
 import SearchForm from "./components/SearchForm";
+import SearchInformation from "./components/SearchInformation";
 import VEPAnnotations from "./components/FunctionalAnnotations";
 import GnomAD from "./components/GnomAD";
 import Insilico from "./components/Insilico";
@@ -26,32 +27,14 @@ function App() {
       <hr className="hr-light"></hr>
       <div className="result-container">
         <div className="col-left">
-          <Row>
-            {searchData !== null ? (
-              <Card className="search-card">
-                <Card.Title>
-                  <h1>Search Values</h1>
-                </Card.Title>
-                <Card.Body>
-                  <Card.Text>
-                    <p>
-                      <b>Chromosome:</b> {searchData.chromosome}
-                    </p>
-                    <p>
-                      <b>Position:</b> {searchData.position}
-                    </p>
-                    <p>
-                      <b>Reference Allele:</b> {searchData.reference}
-                    </p>
-                    <p>
-                      <b>Alternate Allele:</b> {searchData.alternate}
-                    </p>
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            ) : (
-              <></>
-            )}
+          <Row className="card-row">
+            <div className="col-6">
+              <SearchInformation searchData={searchData} />
+            </div>
+
+            <div className="col-6">
+              <SearchInformation searchData={searchData} />
+            </div>
           </Row>
 
           <br></br>

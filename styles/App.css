@@ -5,10 +5,10 @@
 }
 
 .search-card {
-    flex: 0 0 calc(50% - 1rem);
-    margin-left: 1rem;
     font-size: 1.5rem;
     background-color: beige;
+    width: 95%;
+    padding-left: 1.5rem;
 }
 
 .results {
@@ -18,6 +18,11 @@
 
 .col-3 {
     width: 33%;
+    height: 100%;
+}
+
+.col-6 {
+    width: 50%;
     height: 100%;
 }
 
