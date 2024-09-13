@@ -1,0 +1,206 @@
+[
+    {
+      "most_severe_consequence": "missense_variant",
+      "allele_string": "C/G",
+      "id": "1:g.861326C\u003EG",
+      "strand": 1,
+      "transcript_consequences": [
+        {
+          "strand": 1,
+          "variant_allele": "G",
+          "biotype": "protein_coding",
+          "metalr_score": 0.2659,
+          "protein_end": 181,
+          "clinpred_score": "invalid_field",
+          "gene_symbol": "SAMD11",
+          "gene_symbol_source": "EntrezGene",
+          "bayesdel_noaf_score": -0.0671124,
+          "used_ref": "C",
+          "cdna_start": 1051,
+          "fathmm-mkl_coding_score": 0.91318,
+          "dann_score": 0.994018097018529,
+          "cadd_phred": "invalid_field",
+          "transcript_id": "NM_001385640.1",
+          "metarnn_score": "0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943",
+          "provean_score": ".,-4.25,-3.11,.,.,.,.,.,.,.,.",
+          "cds_start": 542,
+          "mutpred_score": ".,0.295,0.295,0.295,0.295,0.295,0.295,0.295,0.295,0.295,0.295,",
+          "impact": "MODERATE",
+          "cds_end": 542,
+          "codons": "tCc/tGc",
+          "metasvm_score": -0.4874,
+          "cdna_end": 1051,
+          "polyphen_score": 0.986,
+          "consequence_terms": [
+            "missense_variant"
+          ],
+          "sift_score": 0,
+          "hgvsp": "NP_001372569.1:p.Ser181Cys",
+          "hgvsc": "NM_001385640.1:c.542C\u003EG",
+          "polyphen_prediction": "probably_damaging",
+          "gene_id": "148398",
+          "mutationtaster_score": 0.999721,
+          "given_ref": "C",
+          "sift_prediction": "deleterious_low_confidence",
+          "bayesdel_addaf_score": -0.0036081,
+          "protein_start": 181,
+          "amino_acids": "S/C",
+          "cadd_raw": 4.547402
+        },
+        {
+          "consequence_terms": [
+            "missense_variant"
+          ],
+          "sift_score": 0,
+          "hgvsp": "NP_001372570.1:p.Ser181Cys",
+          "polyphen_prediction": "probably_damaging",
+          "hgvsc": "NM_001385641.1:c.542C\u003EG",
+          "gene_id": "148398",
+          "mutationtaster_score": 0.999721,
+          "given_ref": "C",
+          "sift_prediction": "deleterious_low_confidence",
+          "bayesdel_addaf_score": -0.0036081,
+          "amino_acids": "S/C",
+          "protein_start": 181,
+          "cadd_raw": 4.547402,
+          "mutpred_score": ".,0.295,0.295,0.295,0.295,0.295,0.295,0.295,0.295,0.295,0.295,",
+          "cds_start": 542,
+          "impact": "MODERATE",
+          "cds_end": 542,
+          "codons": "tCc/tGc",
+          "metasvm_score": -0.4874,
+          "cdna_end": 1051,
+          "polyphen_score": 0.986,
+          "cdna_start": 1051,
+          "fathmm-mkl_coding_score": 0.91318,
+          "dann_score": 0.994018097018529,
+          "cadd_phred": "invalid_field",
+          "transcript_id": "NM_001385641.1",
+          "metarnn_score": "0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943",
+          "provean_score": ".,-4.25,-3.11,.,.,.,.,.,.,.,.",
+          "strand": 1,
+          "variant_allele": "G",
+          "biotype": "protein_coding",
+          "metalr_score": 0.2659,
+          "clinpred_score": "invalid_field",
+          "protein_end": 181,
+          "gene_symbol": "SAMD11",
+          "gene_symbol_source": "EntrezGene",
+          "bayesdel_noaf_score": -0.0671124,
+          "used_ref": "C"
+        },
+        {
+          "metarnn_score": "0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943,0.6426943",
+          "provean_score": ".,-4.25,-3.11,.,.,.,.,.,.,.,.",
+          "cdna_start": 95,
+          "dann_score": 0.994018097018529,
+          "fathmm-mkl_coding_score": 0.91318,
+          "transcript_id": "NM_152486.4",
+          "cadd_phred": 32,
+          "bayesdel_noaf_score": -0.0671124,
+          "used_ref": "C",
+          "clinpred_score": "invalid_field",
+          "protein_end": 2,
+          "gene_symbol_source": "EntrezGene",
+          "gene_symbol": "SAMD11",
+          "metalr_score": 0.2659,
+          "strand": 1,
+          "variant_allele": "G",
+          "biotype": "protein_coding",
+          "mutationtaster_score": 0.999721,
+          "given_ref": "C",
+          "gene_id": "148398",
+          "amino_acids": "S/C",
+          "protein_start": 2,
+          "cadd_raw": 4.547402,
+          "sift_prediction": "deleterious",
+          "bayesdel_addaf_score": -0.0036081,
+          "consequence_terms": [
+            "missense_variant"
+          ],
+          "sift_score": 0,
+          "polyphen_prediction": "probably_damaging",
+          "hgvsc": "NM_152486.4:c.5C\u003EG",
+          "hgvsp": "NP_689699.3:p.Ser2Cys",
+          "cdna_end": 95,
+          "polyphen_score": 0.987,
+          "metasvm_score": -0.4874,
+          "mutpred_score": ".,0.295,0.295,0.295,0.295,0.295,0.295,0.295,0.295,0.295,0.295,",
+          "cds_start": 5,
+          "impact": "MODERATE",
+          "cds_end": 5,
+          "codons": "tCc/tGc"
+        },
+        {
+          "gene_symbol_source": "EntrezGene",
+          "gene_symbol": "LOC107985728",
+          "cadd_raw": 4.547402,
+          "used_ref": "C",
+          "gene_id": "107985728",
+          "given_ref": "C",
+          "cadd_phred": 32,
+          "transcript_id": "NR_168405.1",
+          "consequence_terms": [
+            "upstream_gene_variant"
+          ],
+          "variant_allele": "G",
+          "biotype": "lncRNA",
+          "impact": "MODIFIER",
+          "strand": -1,
+          "distance": 342
+        }
+      ],
+      "assembly_name": "GRCh37",
+      "regulatory_feature_consequences": [
+        {
+          "cadd_raw": 4.547402,
+          "regulatory_feature_id": "ENSR00000000105",
+          "consequence_terms": [
+            "regulatory_region_variant"
+          ],
+          "variant_allele": "G",
+          "biotype": "promoter",
+          "impact": "MODIFIER",
+          "cadd_phred": 32
+        }
+      ],
+      "end": 861326,
+      "start": 861326,
+      "input": "1:g.861326C\u003EG",
+      "seq_region_name": "1",
+      "colocated_variants": [
+        {
+          "strand": 1,
+          "allele_string": "C/G",
+          "start": 861326,
+          "clin_sig": [
+            "uncertain_significance"
+          ],
+          "end": 861326,
+          "clin_sig_allele": "G:uncertain_significance",
+          "id": "rs761145583",
+          "var_synonyms": {
+            "ClinVar": [
+              "RCV002634750",
+              "VCV001924157"
+            ]
+          },
+          "phenotype_or_disease": 1,
+          "seq_region_name": "1",
+          "frequencies": {
+            "G": {
+              "gnomade_eas": 0.00005442,
+              "gnomade": 0.00001203,
+              "gnomade_sas": 0,
+              "gnomade_fin": 0,
+              "gnomade_nfe": 0,
+              "gnomade_amr": 0.00005785,
+              "gnomade_afr": 0,
+              "gnomade_oth": 0,
+              "gnomade_asj": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
