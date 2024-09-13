@@ -1,19 +1,25 @@
 .clinvar-card {
-    background-color: lightgrey;
+    background-color: #ECE9E8;
     flex: 0 0 99%;
+    height: 17.5rem;
 }
 
 .prism-card p {
     font-size: 1.5rem;
 }
 .prism-card {
-    background-color: lightcyan;
+    background-color: #F0FFFF;
     flex: 0 0 99%;
+    height: 17.5rem;
 }
 
 .cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    min-height: 350px;
+    height: fit-content;
+}
+
+.reduced-space {
+    margin-bottom: 0.5px;
 }

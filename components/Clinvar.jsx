@@ -67,27 +67,29 @@ const Clinvar = ({ searchData }) => {
               </Card.Title>
               <Card.Text>
                 <br></br>
-                <p>
+                <p className="reduced-space">
                   Clinvar version: <b>03-06-2024</b>
                 </p>
-                <p>
+                <p className="reduced-space">
                   Variant ID: <b>{clinvarData.results.accession}</b>
                 </p>
-                <p>
+                <p className="reduced-space">
                   Significance: <b>{clinvarData.results.significance}</b>
                 </p>
-                <p>
+                <p className="reduced-space">
                   Review Status: <b>{clinvarData.results.review}</b>
                 </p>
-                <p>
+                <p className="reduced-space">
                   Phenotype: <b>{clinvarData.results.disease}</b>
                 </p>
-                <p>
-                  Linkout:{" "}
+                <p className="reduced-space">
+                  Linkout:
                   <b>
+                    {" "}
                     Click{" "}
                     <a href={clinvarData.results.linkout} target="_blank">
-                      here
+                      {" "}
+                      here{" "}
                     </a>{" "}
                     to visit ClinVar page
                   </b>

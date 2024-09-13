@@ -19,24 +19,25 @@
     border-color: black;
     width: fit-content;
     margin: 1.5px;
-    background-color: lightgrey;
+    background-color: #ECE9E8;
     border-style: dashed;
 }
 
 .full-card {
-    flex: 0 0 calc(50% - 4.5px); /* Adjust as needed */
+    flex: 0 0 calc(50% - 4.5px); 
     border-color: black;
     width: fit-content;
     margin: 1.5px;
-    background-color: lightskyblue;
+    background-color: #F0FFFF;
     border-style: dashed;
     padding-left: 1%;
     padding-top: 0.5%;
     font-size: 1.5rem;
+    height: fit-content;
 }
 
 .pathogenic-population {
-    background-color: coral;
+    background-color: #fbc3b0;
     color: black
 }
 
