@@ -71,7 +71,7 @@ const GnomAD = ({searchData}) => {
         setWarnings(null);
         setLoading(true);
         try {
-            const response = await fetch(`https://0o7ehpwg62.execute-api.ap-southeast-1.amazonaws.com/prod/gnomad-v2?chrom=${searchData.chromosome}&position=${searchData.position}&ref=${searchData.reference.toUpperCase()}&variant=${searchData.alternate.toUpperCase()}`);
+            const response = await fetch(`https://3puvk2tojb.execute-api.ap-southeast-1.amazonaws.com/prod/GnomAD?chromosome=${searchData.chromosome}&position=${searchData.position}&reference=${searchData.reference.toUpperCase()}&variant=${searchData.alternate.toUpperCase()}`);
             const data = await response.json();
             setGnomADData(data);
             if (data.populations.length === 0) {
