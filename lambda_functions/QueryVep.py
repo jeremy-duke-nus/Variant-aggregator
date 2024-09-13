@@ -157,45 +157,45 @@ def classify_set_variant(scores, threshold, threshold_type):
 def process_consequence(consequence):
     result_keys = [x.lower() for x in tools.keys()]
     tool_map = dict(zip(result_keys, tools.keys()))
+    ordered_result_keys = sorted(result_keys)
     try:
         nt_change = consequence['hgvsc']
     except KeyError:
         pass
     else:
-        aa_change = consequence['hgvsp']
-        predictions = {k: v for k, v in consequence.items() if k in result_keys}
+        aa_change = consequence.get('hgvsp', 'p.(?)')
         annotation = []
         total_predictions = 0
         total_pathogenic = 0
-        predictions = predictions.items()
-        predictions = sorted(predictions, key=lambda x: x[0])
-        for (k, v) in predictions:
+        for k in ordered_result_keys:
             detailed_predictions = {}
             toolname = tool_map[k]
             detailed_predictions['id'] = k
+            detailed_predictions['name'] = tools[toolname]['toolname']
+            detailed_predictions['description'] = tools[toolname]['help']
+            detailed_predictions['scores'] = ''
+            detailed_predictions['classification'] = 'Unknown'
             threshold = tools[toolname]['threshold']
             threshold_type = tools[toolname]['threshold_type']
-            if v:
-                if v!='invalid_field':
-                    total_predictions += 1
-                    try:
-                        detailed_predictions['scores'] = set([x for x in v.split(',') if x!="."])
-                        classification = classify_set_variant(detailed_predictions['scores'], 
+            if k in consequence:
+                v = consequence[k]
+                if v:
+                    if v!='invalid_field':
+                        total_predictions += 1
+                        try:
+                            detailed_predictions['scores'] = set([x for x in v.split(',') if x!="."])
+                            classification = classify_set_variant(detailed_predictions['scores'], 
                                             threshold, 
                                             threshold_type)
-                        detailed_predictions['scores'] = ",".join(detailed_predictions['scores'])
-                    except AttributeError:
-                        detailed_predictions['scores'] = v
-                        classification = classify_variant(v, threshold, threshold_type)
-                    if classification == "pathogenic":
-                        total_pathogenic += 1
-                else:
-                    detailed_predictions['scores'] = 'Unknown'
-                    classification = "Unknown"
-                detailed_predictions['classification'] = classification
-                detailed_predictions['name'] = tools[toolname]['toolname']
-                detailed_predictions['description'] = tools[toolname]['help']
-                annotation.append(detailed_predictions)
+                            detailed_predictions['scores'] = ",".join(detailed_predictions['scores'])
+                        except AttributeError:
+                            detailed_predictions['scores'] = v
+                            classification = classify_variant(v, threshold, threshold_type)
+                        if classification == "pathogenic":
+                            total_pathogenic += 1
+                        if classification in ["pathogenic", "neutral"]:
+                            detailed_predictions['classification'] = classification
+            annotation.append(detailed_predictions)
         return {'hgvsc': nt_change, 
                 'hgvsp': aa_change, 
                 'predictions': annotation,
