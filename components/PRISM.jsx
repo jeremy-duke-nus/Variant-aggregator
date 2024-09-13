@@ -53,8 +53,8 @@ const PRISM = ({ searchData }) => {
                   <b>
                     <i>
                       {prismData.results.exists === "True"
-                        ? "NOT FOUND"
-                        : "FOUND"}{" "}
+                        ? "FOUND"
+                        : "NOT FOUND"}{" "}
                     </i>
                   </b>
                   in PRISM BEACON
