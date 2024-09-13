@@ -21,14 +21,6 @@ tools = {
             "scores": [],
             "classifications": [],
             "toolname": "BayesDel (No AF)"},
-        "clinpred_score": {
-            "help": ("ClinPred is a deleteriousness meta-score combining in-silico predictions and AFs. The range of the score is from 0 to 1. "
-            "The higher the score, the more likely the variant is pathogenic. Scores above 0.5 are considered pathogenic."),
-            "threshold": 0.5,
-            "threshold_type": "min",
-            "scores": [],
-            "classifications": [],
-            "toolname": "ClinPred"},
         "MetaLR_score": {
             "help": ("MetaLR is a deleteriousness meta-score derived using logistic regression to integrate nine tools. The range of the score is from 0 to 1. "
                      "The higher the score, the more likely the variant is pathogenic. Values greater than 0.5 are considered pathogenic. (PMID:25552646)"),
@@ -141,27 +133,77 @@ def format_response(status_code, body):
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'},
         'body': json.dumps(body)} 
+def classify_variant(score, threshold, threshold_type):
+    if threshold_type == "min":
+        if score >= threshold:
+            return "pathogenic"
+    elif threshold_type == "max":
+        if score <= threshold:
+            return "pathogenic"
+    return "neutral"
+
+def classify_set_variant(scores, threshold, threshold_type):
+    try:
+        if threshold_type == "min":
+            if any([float(x) >= threshold for x in scores]):
+                return "pathogenic"
+        elif threshold_type == "max":
+            if any([float(x) <= threshold for x in scores]):
+                return "pathogenic"
+        return "neutral"
+    except ValueError:
+        return "Unknown"
 
 def process_consequence(consequence):
-    result_keys = [(x, x.lower()) for x in tools.keys()]
-    if consequence.get('hgvsc', 'c.(?)'):
-        init = {}
-        init['hgvsc'] = consequence.get('hgvsc', 'c.(?)')
-        init['hgvsp'] = consequence.get('hgvsp', 'p.(?)')
+    result_keys = [x.lower() for x in tools.keys()]
+    tool_map = dict(zip(result_keys, tools.keys()))
+    try:
+        nt_change = consequence['hgvsc']
+    except KeyError:
+        pass
+    else:
+        aa_change = consequence['hgvsp']
+        predictions = {k: v for k, v in consequence.items() if k in result_keys}
+        annotation = []
         total_predictions = 0
         total_pathogenic = 0
-        for toolname, toolkey in result_keys:
-            try:
-                tool_score = consequence[toolname]
-                scores = [x for x in set(tool_score.split(",")) if x!="."]
-                if scores:
+        predictions = predictions.items()
+        predictions = sorted(predictions, key=lambda x: x[0])
+        for (k, v) in predictions:
+            detailed_predictions = {}
+            toolname = tool_map[k]
+            detailed_predictions['id'] = k
+            threshold = tools[toolname]['threshold']
+            threshold_type = tools[toolname]['threshold_type']
+            if v:
+                if v!='invalid_field':
                     total_predictions += 1
+                    try:
+                        detailed_predictions['scores'] = set([x for x in v.split(',') if x!="."])
+                        classification = classify_set_variant(detailed_predictions['scores'], 
+                                            threshold, 
+                                            threshold_type)
+                        detailed_predictions['scores'] = ",".join(detailed_predictions['scores'])
+                    except AttributeError:
+                        detailed_predictions['scores'] = v
+                        classification = classify_variant(v, threshold, threshold_type)
+                    if classification == "pathogenic":
+                        total_pathogenic += 1
                 else:
-                    pass
-            except KeyError:
-                tool_score = 'Not provided'
-        return init
-    return None
+                    detailed_predictions['scores'] = 'Unknown'
+                    classification = "Unknown"
+                detailed_predictions['classification'] = classification
+                detailed_predictions['name'] = tools[toolname]['toolname']
+                detailed_predictions['description'] = tools[toolname]['help']
+                annotation.append(detailed_predictions)
+        return {'hgvsc': nt_change, 
+                'hgvsp': aa_change, 
+                'predictions': annotation,
+                'total_predictions': total_predictions,
+                'total_pathogenic': total_pathogenic,
+                'percent_pathogenic': "{:.2f}%".format(100*total_pathogenic/total_predictions if total_predictions else 0)
+                }
+
 
 def lambda_handler(event, context):   
     param = event["queryStringParameters"]
@@ -175,8 +217,9 @@ def lambda_handler(event, context):
     else:
         annotations = []
         for consequence in consequences:
-            result = process_consequence(consequence)
-            annotations.append(result)
+            csq = process_consequence(consequence)
+            annotations.append(csq)
+        annotations = [x for x in annotations if x]
         return format_response(200, annotations)
     return format_response(201, 
                             {"error": "Error in processing Vep results"})
