@@ -21,8 +21,11 @@ const Clinvar = ({ searchData }) => {
       if (data.error) {
         setClinvarData(null);
       } else {
-        setClinvarData(data);
-        console.log(data);
+        if (data.code === 200) {
+          setClinvarData(data);
+        } else {
+          setClinvarData(null);
+        }
       }
     } catch (error) {
       setClinvarData(null);
@@ -40,8 +43,23 @@ const Clinvar = ({ searchData }) => {
         {loading ? (
           <LoadScreen />
         ) : clinvarData === null ? (
-          <></>
-        ) : clinvarData.code === 200 ? (
+          <Card className="clinvar-card">
+            <Card.Body>
+              <Card.Title>
+                <h2>Clinvar overview </h2>
+              </Card.Title>
+              <Card.Text>
+                <br></br>
+                <p>
+                  Clinvar version: <b>03-06-2024</b>
+                </p>
+                <p>
+                  <h1>Not found in ClinVar</h1>
+                </p>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        ) : (
           <Card className="clinvar-card">
             <Card.Body>
               <Card.Title>
@@ -73,23 +91,6 @@ const Clinvar = ({ searchData }) => {
                     </a>{" "}
                     to visit ClinVar page
                   </b>
-                </p>
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        ) : (
-          <Card className="clinvar-card">
-            <Card.Body>
-              <Card.Title>
-                <h2>Clinvar overview </h2>
-              </Card.Title>
-              <Card.Text>
-                <br></br>
-                <p>
-                  Clinvar version: <b>03-06-2024</b>
-                </p>
-                <p>
-                  <h1>Not found in ClinVar</h1>
                 </p>
               </Card.Text>
             </Card.Body>
