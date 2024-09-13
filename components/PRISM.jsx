@@ -10,7 +10,7 @@ const PRISM = ({ searchData }) => {
         setPrismData(null);
         setLoading(true);
         try {
-            const response = await fetch(`https://0o7ehpwg62.execute-api.ap-southeast-1.amazonaws.com/prod/prism-v2?chromosome=${searchData.chromosome}&position=${searchData.position}&reference=${searchData.reference.toUpperCase()}&alternate=${searchData.alternate.toUpperCase()}`);
+            const response = await fetch(`https://3puvk2tojb.execute-api.ap-southeast-1.amazonaws.com/prod/Prism?chromosome=${searchData.chromosome}&position=${searchData.position}&reference=${searchData.reference.toUpperCase()}&variant=${searchData.alternate.toUpperCase()}`);
             const data = await response.json();
             if (data.error) {
                 setPrismData(null);
