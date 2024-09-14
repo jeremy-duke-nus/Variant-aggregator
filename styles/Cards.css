@@ -4,6 +4,10 @@
     height: 17.5rem;
 }
 
+.oncokb-card {
+    background-color: white;
+    flex: 0 0 99%;
+}
 .prism-card p {
     font-size: 1.5rem;
 }

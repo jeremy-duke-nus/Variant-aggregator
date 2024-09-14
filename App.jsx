@@ -9,7 +9,7 @@ import Insilico from "./components/Insilico";
 import Beacon from "./components/BEACON";
 import Clinvar from "./components/Clinvar";
 import PRISM from "./components/PRISM";
-
+import OncoKb from "./components/OncoKb";
 import "./styles/App.css";
 
 function App() {
@@ -38,6 +38,9 @@ function App() {
           </Row>
 
           <br></br>
+          <Row>
+            {searchData !== null ? <OncoKb searchData={searchData} /> : null}
+          </Row>
           <Row>
             {searchData !== null ? (
               <VEPAnnotations searchData={searchData} />
