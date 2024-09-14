@@ -31,7 +31,7 @@ const OncoKb = ({ searchData }) => {
 
   useEffect(() => {
     fetchOncoKb(searchData);
-    console.log(oncoKbData);
+    console.log(searchData);
   }, [searchData]);
 
   return (
@@ -68,35 +68,39 @@ const OncoKb = ({ searchData }) => {
                 </p>
                 <p className="reduced-space">{oncoKbData.description}</p>
                 <br></br>
-                <Accordion>
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>
-                      <h2>Drugs</h2>
-                    </Accordion.Header>
-                    <Accordion.Body>
-                      <Table className="insilico-tbl">
-                        <thead>
-                          <tr>
-                            <th>Drug</th>
-                            <th>Indication</th>
-                            <th>Level</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {oncoKbData.treatments.map((drug, index) => {
-                            return (
-                              <tr>
-                                <td>{drug.drug}</td>
-                                <td>{drug.indication}</td>
-                                <td>{drug.fda}</td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </Table>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                </Accordion>
+                {oncoKbData.treatments.length > 0 ? (
+                  <Accordion>
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>
+                        <h2>Drugs</h2>
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <Table className="insilico-tbl">
+                          <thead>
+                            <tr>
+                              <th>Drug</th>
+                              <th>Indication</th>
+                              <th>Level</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {oncoKbData.treatments.map((drug, index) => {
+                              return (
+                                <tr>
+                                  <td>{drug.drug}</td>
+                                  <td>{drug.indication}</td>
+                                  <td>{drug.fda}</td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </Table>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion>
+                ) : (
+                  <></>
+                )}
               </Card.Text>
             </Card.Body>
           </Card>
