@@ -1,7 +1,7 @@
 .clinvar-card {
     background-color: #ECE9E8;
     flex: 0 0 99%;
-    height: 17.5rem;
+    height: 25rem;
 }
 
 .oncokb-card {
@@ -14,7 +14,7 @@
 .prism-card {
     background-color: #F0FFFF;
     flex: 0 0 99%;
-    height: 17.5rem;
+    height: 25rem;
 }
 
 .cards {
