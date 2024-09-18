@@ -8,7 +8,9 @@ const ValidateNucleotides = (nucleotide) => {
 }
 
 const ValidateCompleteFields = (searchData) => {
+    let regex = /^[0-9]+$/;
     return (searchData.chromosome !== '' && searchData.position !== '' 
+            && regex.test(searchData.position)
             && searchData.reference !== '' && searchData.alternate !== '' 
             && searchData.reference !== searchData.alternate);
 }
