@@ -9,7 +9,48 @@
     background-color: beige;
     width: 95%;
     padding-left: 1.5rem;
+    height: 25rem;
+}
+
+.gene-card {
+    font-size: 1.5rem;
+    background-color: lightblue;
+    width: 95%;
+    padding-left: 1.5rem;
+    height: 25rem;
+    overflow-y: scroll;
+}
+
+.clinvar-card {
+    background-color: #ECE9E8;
+    flex: 0 0 99%;
+    height: 25rem;
+}
+
+.oncokb-card {
+    background-color: white;
+    flex: 0 0 99%;
+}
+
+.prism-card p {
+    font-size: 1.5rem;
+}
+
+.prism-card {
+    background-color: #F0FFFF;
+    flex: 0 0 99%;
+    height: 25rem;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     height: fit-content;
+}
+
+.reduced-space {
+    margin-bottom: 0.5px;
 }
 
 .results {

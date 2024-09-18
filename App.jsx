@@ -10,6 +10,8 @@ import Beacon from "./components/BEACON";
 import Clinvar from "./components/Clinvar";
 import PRISM from "./components/PRISM";
 import OncoKb from "./components/OncoKb";
+import GeneRif from "./components/GeneRIF";
+
 import "./styles/App.css";
 
 function App() {
@@ -33,7 +35,7 @@ function App() {
             </div>
 
             <div className="col-6">
-              <SearchInformation searchData={searchData} />
+              <GeneRif searchData={searchData} />
             </div>
           </Row>
 

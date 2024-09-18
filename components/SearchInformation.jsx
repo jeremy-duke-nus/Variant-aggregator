@@ -21,7 +21,7 @@ const SearchInformation = ({ searchData }) => {
                 Alternate Allele: {searchData.alternate}
               </p>
               <p className="reduced-space">
-                Normalized HGVSg: {searchData.notation}
+                Normalized HGVSg: {searchData.notation.replace('%3E', '>')}
               </p>
             </Card.Text>
           </Card.Body>

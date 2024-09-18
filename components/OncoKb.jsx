@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Card, Accordion } from "react-bootstrap";
 import LoadScreen from "./LoadScreen";
-import "../styles/Cards.css";
 
 const OncoKb = ({ searchData }) => {
   const [loading, setLoading] = useState(false);

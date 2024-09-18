@@ -16,24 +16,21 @@
 
 .card {
     flex: 0 0 calc(25% - 10px); /* Adjust as needed */
-    border-color: black;
     width: fit-content;
     margin: 1.5px;
     background-color: #ECE9E8;
-    border-style: dashed;
 }
 
 .full-card {
     flex: 0 0 calc(50% - 4.5px); 
-    border-color: black;
     width: fit-content;
     margin: 1.5px;
     background-color: #F0FFFF;
-    border-style: dashed;
     padding-left: 1%;
     padding-top: 0.5%;
     font-size: 1.5rem;
     height: fit-content;
+    padding-bottom: 1rem
 }
 
 .pathogenic-population {
