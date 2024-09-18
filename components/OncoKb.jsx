@@ -30,7 +30,6 @@ const OncoKb = ({ searchData }) => {
 
   useEffect(() => {
     fetchOncoKb(searchData);
-    console.log(searchData);
   }, [searchData]);
 
   return (
