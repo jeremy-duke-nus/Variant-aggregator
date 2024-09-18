@@ -59,7 +59,8 @@ function App() {
             </div>
 
             <div className="col-3">
-              {searchData !== null ? <Clinvar searchData={searchData} /> : null}
+              {/*{searchData !== null ? <Clinvar searchData={searchData} /> : null}*/}
+              <></>
             </div>
           </Row>
 
