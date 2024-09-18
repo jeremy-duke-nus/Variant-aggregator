@@ -9,7 +9,7 @@
     background-color: beige;
     width: 95%;
     padding-left: 1.5rem;
-    height: 20rem;
+    height: 17.5rem;
 }
 
 .gene-card {
@@ -17,7 +17,7 @@
     background-color: lightblue;
     width: 95%;
     padding-left: 1.5rem;
-    height: 20rem;
+    height: 17.5rem;
     overflow-y: scroll;
 }
 
