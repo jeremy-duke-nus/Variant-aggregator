@@ -1,8 +1,8 @@
 import json
 import urllib3
-from collections import defaultdict, Counter
+from collections import defaultdict
 
-tools = {
+TOOLS = {
         "BayesDel_addAF_score": {
             "help": ("BayesDel (AF) is a deleteriousness meta-score. The range of the score is from -1.29334 to 0.75731. "
                      "The higher the score, the more likely the variant is pathogenic. "
@@ -115,24 +115,27 @@ tools = {
 
 def fetch_vep_data(notation):
     # returns None if status code from the Vep API is not 200 or no consequences can be retrieved
-    TOOLS = ",".join(tools.keys())
+    tools = ",".join(TOOLS.keys())
     http = urllib3.PoolManager()
-    API_ENDPOINT = f"https://grch37.rest.ensembl.org/vep/human/hgvs/{notation}?CADD=1&dbNSFP={TOOLS}&hgvs=1&maxEntScan=1&refseq=1&content-type=application/json"
+    API_ENDPOINT = f"https://grch37.rest.ensembl.org/vep/human/hgvs/{notation}?CADD=1&dbNSFP={tools}&hgvs=1&maxEntScan=1&refseq=1&content-type=application/json"
     response = http.request('GET', API_ENDPOINT)
     if response.status == 200:
         data = json.loads(response.data)
         try:
             return data[0]['transcript_consequences']
         except (IndexError, KeyError):
-            return None
-    return None 
+            return 
+    return 
+
 def format_response(status_code, body):
     return {'statusCode': status_code,
-    'headers': {
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'},
-        'body': json.dumps(body)} 
+            'headers': {
+                        'Access-Control-Allow-Headers': 'Content-Type',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                        },
+            'body': json.dumps(body)}
+
 def classify_variant(score, threshold, threshold_type):
     if threshold_type == "min":
         if score >= threshold:
@@ -155,8 +158,8 @@ def classify_set_variant(scores, threshold, threshold_type):
         return "Unknown"
 
 def process_consequence(consequence):
-    result_keys = [x.lower() for x in tools.keys()]
-    tool_map = dict(zip(result_keys, tools.keys()))
+    result_keys = [x.lower() for x in TOOLS.keys()]
+    tool_map = dict(zip(result_keys, TOOLS.keys()))
     ordered_result_keys = sorted(result_keys)
     try:
         nt_change = consequence['hgvsc']
@@ -171,12 +174,12 @@ def process_consequence(consequence):
             detailed_predictions = {}
             toolname = tool_map[k]
             detailed_predictions['id'] = k
-            detailed_predictions['name'] = tools[toolname]['toolname']
-            detailed_predictions['description'] = tools[toolname]['help']
+            detailed_predictions['name'] = TOOLS[toolname]['toolname']
+            detailed_predictions['description'] = TOOLS[toolname]['help']
             detailed_predictions['scores'] = ''
             detailed_predictions['classification'] = 'Unknown'
-            threshold = tools[toolname]['threshold']
-            threshold_type = tools[toolname]['threshold_type']
+            threshold = TOOLS[toolname]['threshold']
+            threshold_type = TOOLS[toolname]['threshold_type']
             if k in consequence:
                 v = consequence[k]
                 if v:

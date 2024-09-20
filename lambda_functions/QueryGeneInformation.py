@@ -1,5 +1,18 @@
+
 import json
 import urllib3
+
+"""
+QueryGeneInformation Module
+This module provides functions to query gene information using HGVS notation and retrieve gene summaries from external APIs.
+Functions:
+    get_gene_symbol(notation: str) -> tuple:
+        Extracts the gene symbol and gene ID from the VEP API using the provided HGVS notation.
+    get_summary(gene_id: str) -> dict:
+        Retrieves a summary of the gene information from the NCBI E-utilities API using the provided gene ID.
+    lambda_handler(event: dict, context: object) -> dict:
+        AWS Lambda handler function that processes the event, extracts the HGVS notation, retrieves gene information, and returns a summary response.
+"""
 
 def get_gene_symbol(notation):
     # extract gene symbol from Vep 
@@ -12,11 +25,15 @@ def get_gene_symbol(notation):
         if consequences:
             for csq  in consequences:
                 try:
-                    return 200, csq["gene_symbol"], csq['gene_id']
+                    return {'status': 200, 
+                            'symbol': csq["gene_symbol"], 
+                            'entrez':csq['gene_id']}
                 except KeyError:
                     pass
-        return 200, None, None 
-    return None, None, None
+        return  {'status': 200, 
+                'symbol': None, 
+                'entrez': None}
+    return None
 
 def get_summary(gene_id):
     url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=gene&id={gene_id}&retmode=json"
@@ -34,14 +51,23 @@ def get_summary(gene_id):
 def lambda_handler(event, context):
     param = event["queryStringParameters"]
     notation = param["hgvsg"]
-    status, gene, gene_id = get_gene_symbol(notation)
-    if gene_id:
-        summary = get_summary(gene_id)
+    vep_data = get_gene_symbol(notation)
+    if vep_data:
+        if vep_data['entrez']: 
+            summary = get_summary(vep_data['entrez'])
+        else:
+            summary = {'status': 204, 'summary': 'Gene Id not found', 'symbol': None}
+        summary['gene'] = vep_data['symbol']
+        summary['gene_id'] = vep_data['entrez']
     else:
-        summary = {'status': 204, 'summary': 'Gene Id not found', 'symbol': None}
-    summary['gene'] = gene
-    summary['gene_id'] = gene_id
+        summary = {'status': 204, 'summary': 'Gene Symbol not found', 'symbol': None}
     return {
-        'statusCode': status,
-        'body': json.dumps(summary)
+        'statusCode': 200 if vep_data else 204,
+        'headers': {
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+            
+        },
+        'body': json.dumps(summary),
     }
