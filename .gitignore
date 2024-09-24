@@ -25,3 +25,5 @@ React-app/*.local
 *.sln
 *.sw?
 node_modules
+
+data/*

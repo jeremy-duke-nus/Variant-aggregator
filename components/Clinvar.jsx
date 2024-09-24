@@ -10,13 +10,14 @@ const Clinvar = ({ searchData }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://0o7ehpwg62.execute-api.ap-southeast-1.amazonaws.com/prod/clinvar-v2?chrom=${
+        `https://3puvk2tojb.execute-api.ap-southeast-1.amazonaws.com/prod/ClinVar?chromosome=${
           searchData.chromosome
         }&position=${
           searchData.position
         }&reference=${searchData.reference.toUpperCase()}&variant=${searchData.alternate.toUpperCase()}`
       );
       const data = await response.json();
+      
       if (data.error) {
         setClinvarData(null);
       } else {
