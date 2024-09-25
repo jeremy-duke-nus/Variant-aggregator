@@ -1,8 +1,4 @@
-# React + Vite
+# Variant Aggregator
+Refer to the project wiki pages for more information such as cloud architecture and project roadmap. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To collaborate, please reach out to me at my email jeremy.ng.w.k@sgh.com.sg or jeremy.ng.wk@duke-nus.edu.sg
