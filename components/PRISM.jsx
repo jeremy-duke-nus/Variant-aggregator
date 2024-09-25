@@ -35,32 +35,38 @@ const PRISM = ({ searchData }) => {
     <div className="results">
       <div className="cards">
         {loading ? (
-          <LoadScreen />
+          <LoadScreen string={"from Prism"} />
         ) : prismData === null ? (
           <></>
         ) : (
-          <Card className="prism-card">
-            <Card.Body>
-              <Card.Title>
-                <h2>SingHealth PRISM </h2>
-              </Card.Title>
-              <Card.Text>
-                <br></br>
+          <>
+            <hr className="divider"></hr>
 
-                <p>
-                  Variant is{" "}
-                  <b>
-                    <i>
-                      {prismData.results.exists === "True"
-                        ? "FOUND"
-                        : "NOT FOUND"}{" "}
-                    </i>
-                  </b>
-                  in PRISM BEACON
-                </p>
-              </Card.Text>
-            </Card.Body>
-          </Card>
+            <Card className="info-card col-6-card">
+              <Card.Body>
+                <Card.Title>
+                  <h2>SingHealth PRISM </h2>
+                </Card.Title>
+                <Card.Text>
+                  <br></br>
+
+                  <p>
+                    Variant is{" "}
+                    <b>
+                      <span className="emphasis">
+                        <i>
+                          {prismData.results.exists === "True"
+                            ? "FOUND"
+                            : "NOT FOUND"}{" "}
+                        </i>
+                      </span>
+                    </b>
+                    in PRISM BEACON
+                  </p>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </>
         )}
       </div>
     </div>

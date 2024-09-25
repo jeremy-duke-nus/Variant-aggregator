@@ -4,21 +4,23 @@
     margin-top: 20px;
 }
 
-.search-card {
-    font-size: 1.5rem;
-    background-color: beige;
+.col-6-card{
     width: 95%;
     padding-left: 1.5rem;
-    height: 17.5rem;
+    height: 100%;
+    flex: 0 0 99%;
+}
+
+.info-card  {
+    font-size: 1rem;
+    border-color: white
 }
 
 .gene-card {
-    font-size: 1.5rem;
+    font-size: 3rem;
     background-color: lightblue;
     width: 95%;
-    padding-left: 1.5rem;
-    height: 17.5rem;
-    overflow-y: scroll;
+    padding-left: 1rem;
 }
 
 .clinvar-card {
@@ -32,15 +34,7 @@
     flex: 0 0 99%;
 }
 
-.prism-card p {
-    font-size: 1.5rem;
-}
 
-.prism-card {
-    background-color: #F0FFFF;
-    flex: 0 0 99%;
-    height: 25rem;
-}
 
 .cards {
     display: flex;
@@ -77,8 +71,8 @@
     height: 100%;
 }
 
-.hr-light {
-    color: lightgrey;
+.hr-dark {
+    color: black
 }
 
 .col-left {

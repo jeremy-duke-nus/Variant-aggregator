@@ -163,7 +163,7 @@ const VEPAnnotations = ({ searchData }) => {
   return (
     <div className="results">
       {isLoading ? (
-        <LoadScreen />
+        <LoadScreen string={"annotations from Vep"} />
       ) : tableData !== null ? (
         <AnnotationTable VepAnnotations={tableData} />
       ) : (

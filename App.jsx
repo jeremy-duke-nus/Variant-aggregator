@@ -26,21 +26,24 @@ function App() {
       <div className="form-container">
         <SearchForm searchSetter={setSearchData} />
       </div>
-      <hr className="hr-light"></hr>
+      <hr className="hr-dark"></hr>
       <div className="result-container">
         <div className="col-left">
           <Row className="card-row">
             <div className="col-6">
-              <SearchInformation searchData={searchData} />
+              <Row>
+                <SearchInformation searchData={searchData} />
+              </Row>
+
+              <Row>
+                {searchData !== null ? <PRISM searchData={searchData} /> : null}
+              </Row>
             </div>
 
             <div className="col-6">
               <GeneRif searchData={searchData} />
             </div>
           </Row>
-
-          <br></br>
-
           <Row>
             {searchData !== null ? (
               <VEPAnnotations searchData={searchData} />
@@ -51,14 +54,10 @@ function App() {
             {searchData !== null ? <OncoKb searchData={searchData} /> : null}
           </Row>
           <Row className="card-row">
-            <div className="col-8">
-              {searchData !== null ? <Clinvar searchData={searchData} /> : null}
-            </div>
-
-            <div className="col-3">
-              {searchData !== null ? <PRISM searchData={searchData} /> : null}
-            </div>
+            {searchData !== null ? <Clinvar searchData={searchData} /> : null}
           </Row>
+
+          <Row className="card-row"></Row>
 
           <Row>
             {searchData !== null ? <Insilico searchData={searchData} /> : null}

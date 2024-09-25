@@ -36,7 +36,7 @@ const OncoKb = ({ searchData }) => {
     <div className="results">
       <div className="cards">
         {loading ? (
-          <LoadScreen />
+          <LoadScreen string={"from OncoKb using amino acid change"} />
         ) : oncoKbData === null ? (
           <Card className="oncokb-card">
             <Card.Body>
@@ -58,9 +58,10 @@ const OncoKb = ({ searchData }) => {
               <Card.Text>
                 <br></br>
                 <p className="reduced-space">
-                  This variant{" "}
+                  This variant ({oncoKbData.gene}, p.{oncoKbData.aachange})
                   <span className="emphasis">
-                    {oncoKbData.hotspot === "True" ? "is" : "is not"} a hotspot
+                    {oncoKbData.hotspot === "True" ? " is" : " is not"} a
+                    hotspot
                   </span>
                   . It is a predicted{" "}
                   <span className="emphasis">{oncoKbData.effect}</span> mutation

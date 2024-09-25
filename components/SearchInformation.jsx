@@ -5,7 +5,7 @@ const SearchInformation = ({ searchData }) => {
   return (
     <div className="search-info">
       {searchData !== null ? (
-        <Card className="search-card">
+        <Card className="info-card col-6-card">
           <Card.Title></Card.Title>
           <Card.Body>
             <Card.Text>
@@ -21,7 +21,7 @@ const SearchInformation = ({ searchData }) => {
                 Alternate Allele: {searchData.alternate}
               </p>
               <p className="reduced-space">
-                Normalized HGVSg: {searchData.notation.replace('%3E', '>')}
+                Normalized HGVSg: {searchData.notation.replace("%3E", ">")}
               </p>
             </Card.Text>
           </Card.Body>

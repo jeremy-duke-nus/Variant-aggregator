@@ -32,7 +32,7 @@ const Clinvar = ({ searchData }) => {
     <div className="results">
       <div className="cards">
         {loading ? (
-          <LoadScreen />
+          <LoadScreen string={"from Clinvar"} />
         ) : clinvarData === null ? (
           <Card className="clinvar-card">
             <Card.Body>
@@ -48,7 +48,7 @@ const Clinvar = ({ searchData }) => {
             </Card.Body>
           </Card>
         ) : (
-          <Card className="clinvar-card">
+          <Card className="clinvar-card h-100">
             <Card.Body>
               <Card.Title>
                 <h2>Clinvar overview </h2>

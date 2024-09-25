@@ -1,11 +1,11 @@
-import '../styles/Loadscreen.css';
+import "../styles/Loadscreen.css";
 
-const LoadScreen = () => {
-    return (
-        <div className='loading'>
-            <h2>Loading...</h2>
-        </div>
-    );
+const LoadScreen = ({ string }) => {
+  return (
+    <div className="loading">
+      <h2>Loading {string}...</h2>
+    </div>
+  );
 };
 
 export default LoadScreen;

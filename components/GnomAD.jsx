@@ -114,7 +114,7 @@ const GnomAD = ({ searchData }) => {
     <div className="results">
       <h2>Population data from GnomAD</h2>
       {loading && !warnings ? (
-        <LoadScreen />
+        <LoadScreen string={"population data from GnomAD"} />
       ) : warnings ? (
         <div className="warning">
           <h2>{warnings}</h2>

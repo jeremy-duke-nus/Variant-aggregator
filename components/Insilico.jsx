@@ -101,7 +101,7 @@ const Insilico = ({ searchData }) => {
     <div className="results">
       <h2>In-silico prediction tools</h2>
       {loading ? (
-        <LoadScreen />
+        <LoadScreen string={"predictions from Vep"} />
       ) : InsilicoData ? (
         <TabbedTable data={InsilicoData} />
       ) : (
