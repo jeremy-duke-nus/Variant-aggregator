@@ -54,6 +54,10 @@
     margin-bottom: 0px;
 }
 
+.emphasis {
+    font-weight: bold;
+    color: red;
+}
 .p {
     margin-bottom: 0px;
 }

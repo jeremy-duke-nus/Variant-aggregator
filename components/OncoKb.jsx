@@ -58,11 +58,18 @@ const OncoKb = ({ searchData }) => {
               <Card.Text>
                 <br></br>
                 <p className="reduced-space">
-                  This variant {oncoKbData.hotspot === "True" ? "is" : "is not"}{" "}
-                  a hotspot. It is a predicted {oncoKbData.effect} mutation with
-                  highest sensitivity level of {oncoKbData.sensitivity}, highest
-                  diagnostic level of {oncoKbData.diagnostic}, and highest FDA
-                  approval level of {oncoKbData.fda}.
+                  This variant{" "}
+                  <span className="emphasis">
+                    {oncoKbData.hotspot === "True" ? "is" : "is not"} a hotspot
+                  </span>
+                  . It is a predicted{" "}
+                  <span className="emphasis">{oncoKbData.effect}</span> mutation
+                  with highest sensitivity level of{" "}
+                  <span className="emphasis"> {oncoKbData.sensitivity}</span>,
+                  highest diagnostic level of{" "}
+                  <span className="emphasis">{oncoKbData.diagnostic}</span>, and
+                  highest FDA approval level of{" "}
+                  <span className="emphasis">{oncoKbData.fda}</span>.
                 </p>
                 <p className="reduced-space">{oncoKbData.description}</p>
                 <br></br>
