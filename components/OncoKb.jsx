@@ -71,11 +71,21 @@ const OncoKb = ({ searchData }) => {
                   highest FDA approval level of{" "}
                   <span className="emphasis">{oncoKbData.fda}</span>.
                 </p>
-                <p className="reduced-space">{oncoKbData.description}</p>
+
                 <br></br>
                 {oncoKbData.treatments.length > 0 ? (
                   <Accordion>
                     <Accordion.Item eventKey="0">
+                      <Accordion.Header>
+                        <h2>Variant details</h2>
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <p className="reduced-space">
+                          {oncoKbData.description}
+                        </p>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="1">
                       <Accordion.Header>
                         <h2>Drugs</h2>
                       </Accordion.Header>

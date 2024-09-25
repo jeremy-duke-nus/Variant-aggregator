@@ -40,15 +40,16 @@ function App() {
           </Row>
 
           <br></br>
-          <Row>
-            {searchData !== null ? <OncoKb searchData={searchData} /> : null}
-          </Row>
+
           <Row>
             {searchData !== null ? (
               <VEPAnnotations searchData={searchData} />
             ) : null}
           </Row>
 
+          <Row>
+            {searchData !== null ? <OncoKb searchData={searchData} /> : null}
+          </Row>
           <Row className="card-row">
             <div className="col-8">
               {searchData !== null ? <Clinvar searchData={searchData} /> : null}

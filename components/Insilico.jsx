@@ -29,7 +29,7 @@ const TabbedTable = (data) => {
               <Accordion>
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>
-                    <h1>Results</h1>
+                    <h2>In-silico prediction results</h2>
                   </Accordion.Header>
                   <Accordion.Body>
                     <Table className="insilico-tbl">
