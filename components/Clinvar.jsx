@@ -42,9 +42,6 @@ const Clinvar = ({ searchData }) => {
               <Card.Text>
                 <br></br>
                 <p>
-                  Clinvar version: <b>03-06-2024</b>
-                </p>
-                <p>
                   <h1>Not found in ClinVar</h1>
                 </p>
               </Card.Text>
@@ -58,9 +55,6 @@ const Clinvar = ({ searchData }) => {
               </Card.Title>
               <Card.Text>
                 <br></br>
-                <p className="reduced-space">
-                  Clinvar version: <b>03-06-2024</b>
-                </p>
                 <p className="reduced-space">
                   Variant ID: <b>{clinvarData.accession}</b>
                 </p>
