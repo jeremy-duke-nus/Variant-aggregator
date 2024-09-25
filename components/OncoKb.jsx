@@ -25,6 +25,7 @@ const OncoKb = ({ searchData }) => {
     } catch (error) {
       setOncoKbData(null);
     }
+
     setLoading(false);
   };
 
@@ -128,7 +129,7 @@ const OncoKb = ({ searchData }) => {
               </Card.Title>
               <Card.Text>
                 <br></br>
-                <h1>Not found in OncoKb</h1>
+                <h2>{oncoKbData.message}</h2>
               </Card.Text>
             </Card.Body>
           </Card>

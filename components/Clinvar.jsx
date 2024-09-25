@@ -21,6 +21,10 @@ const Clinvar = ({ searchData }) => {
     } catch (error) {
       setClinvarData(null);
     }
+
+    if (clinvarData.found !== "true") {
+      setClinvarData(null);
+    }
     setLoading(false);
   };
 

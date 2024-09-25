@@ -13,7 +13,8 @@
 
 .info-card  {
     font-size: 1rem;
-    border-color: white
+    border-color: white;
+    height: 100%;
 }
 
 .gene-card {
@@ -26,7 +27,6 @@
 .clinvar-card {
     background-color: #ECE9E8;
     flex: 0 0 99%;
-    height: 25rem;
 }
 
 .oncokb-card {
