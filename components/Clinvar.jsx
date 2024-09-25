@@ -18,7 +18,6 @@ const Clinvar = ({ searchData }) => {
       );
       const data = await response.json();
       setClinvarData(data);
-      console.log(data);
     } catch (error) {
       setClinvarData(null);
     }
