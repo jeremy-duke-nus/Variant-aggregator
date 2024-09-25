@@ -17,16 +17,8 @@ const Clinvar = ({ searchData }) => {
         }&reference=${searchData.reference.toUpperCase()}&variant=${searchData.alternate.toUpperCase()}`
       );
       const data = await response.json();
-      
-      if (data.error) {
-        setClinvarData(null);
-      } else {
-        if (data.code === 200) {
-          setClinvarData(data);
-        } else {
-          setClinvarData(null);
-        }
-      }
+      setClinvarData(data);
+      console.log(data);
     } catch (error) {
       setClinvarData(null);
     }
@@ -71,23 +63,23 @@ const Clinvar = ({ searchData }) => {
                   Clinvar version: <b>03-06-2024</b>
                 </p>
                 <p className="reduced-space">
-                  Variant ID: <b>{clinvarData.results.accession}</b>
+                  Variant ID: <b>{clinvarData.accession}</b>
                 </p>
                 <p className="reduced-space">
-                  Significance: <b>{clinvarData.results.significance}</b>
+                  Significance: <b>{clinvarData.significance}</b>
                 </p>
                 <p className="reduced-space">
-                  Review Status: <b>{clinvarData.results.review}</b>
+                  Review Status: <b>{clinvarData.criteria}</b>
                 </p>
                 <p className="reduced-space">
-                  Phenotype: <b>{clinvarData.results.disease}</b>
+                  Phenotype: <b>{clinvarData.diseases}</b>
                 </p>
                 <p className="reduced-space">
                   Linkout:
                   <b>
                     {" "}
                     Click{" "}
-                    <a href={clinvarData.results.linkout} target="_blank">
+                    <a href={clinvarData.linkout} target="_blank">
                       {" "}
                       here{" "}
                     </a>{" "}

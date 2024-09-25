@@ -50,17 +50,12 @@ function App() {
           </Row>
 
           <Row className="card-row">
-            <div className="col-3">
+            <div className="col-8">
               {searchData !== null ? <Clinvar searchData={searchData} /> : null}
             </div>
 
             <div className="col-3">
               {searchData !== null ? <PRISM searchData={searchData} /> : null}
-            </div>
-
-            <div className="col-3">
-              {/*{searchData !== null ? <Clinvar searchData={searchData} /> : null}*/}
-              <></>
             </div>
           </Row>
 
