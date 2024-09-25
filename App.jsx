@@ -44,6 +44,8 @@ function App() {
               <GeneRif searchData={searchData} />
             </div>
           </Row>
+
+          <br></br>
           <Row>
             {searchData !== null ? (
               <VEPAnnotations searchData={searchData} />
