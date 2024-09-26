@@ -18,7 +18,6 @@ const Clinvar = ({ searchData }) => {
       );
       const data = await response.json();
       if (data.found === false) {
-        console.log(data);
         setClinvarData(null);
       } else {
         setClinvarData(data);
