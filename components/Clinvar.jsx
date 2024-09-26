@@ -17,7 +17,6 @@ const Clinvar = ({ searchData }) => {
         }&reference=${searchData.reference.toUpperCase()}&variant=${searchData.alternate.toUpperCase()}`
       );
       const data = await response.json();
-      console.log(data);
       if (data.found === "false") {
         setClinvarData(null);
       } else {
