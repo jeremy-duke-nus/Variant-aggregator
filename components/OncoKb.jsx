@@ -59,7 +59,8 @@ const OncoKb = ({ searchData }) => {
               <Card.Text>
                 <br></br>
                 <p className="reduced-space">
-                  This variant ({oncoKbData.gene}, p.{oncoKbData.aachange})
+                  This variant ({oncoKbData.gene}, p.{oncoKbData.aachange}) occurs within {oncoKbData.gene}, a known <span className="emphasis">{oncoKbData.geneType}</span>. 
+                  This variant is likely to be <span className='emphasis'>{oncoKbData.oncogenecity}</span> and 
                   <span className="emphasis">
                     {oncoKbData.hotspot === "True" ? " is" : " is not"} a
                     hotspot

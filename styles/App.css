@@ -50,7 +50,8 @@
 
 .emphasis {
     font-weight: bold;
-    color: red;
+    color: black;
+    font-size: 1.5rem;
 }
 .p {
     margin-bottom: 0px;
