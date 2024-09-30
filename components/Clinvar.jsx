@@ -17,12 +17,12 @@ const Clinvar = ({ searchData }) => {
         }&reference=${searchData.reference.toUpperCase()}&variant=${searchData.alternate.toUpperCase()}`
       );
       const data = await response.json();
-      setClinvarData(data);
+      if (data.found === false) {
+        setClinvarData(null);
+      } else {
+        setClinvarData(data);
+      }
     } catch (error) {
-      setClinvarData(null);
-    }
-
-    if (clinvarData.found !== "true") {
       setClinvarData(null);
     }
     setLoading(false);
