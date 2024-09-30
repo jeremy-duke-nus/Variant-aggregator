@@ -59,7 +59,12 @@ const OncoKb = ({ searchData }) => {
               <Card.Text>
                 <br></br>
                 <p className="reduced-space">
-                  This variant ({oncoKbData.gene}, p.{oncoKbData.aachange})
+                  This variant ({oncoKbData.gene}, p.{oncoKbData.aachange}
+                  )[Linkout{" "}
+                  <a href={oncoKbData.linkout} target="_blank">
+                    here
+                  </a>
+                  ]
                   <span className="emphasis">
                     {oncoKbData.hotspot === "True" ? " is" : " is not"} a
                     hotspot
