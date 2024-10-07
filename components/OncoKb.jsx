@@ -59,12 +59,14 @@ const OncoKb = ({ searchData }) => {
               <Card.Text>
                 <br></br>
                 <p className="reduced-space">
-                  This variant ({oncoKbData.gene}, p.{oncoKbData.aachange}
-                  )[Linkout{" "}
+                  This variant is found in {oncoKbData.gene}, a{" "}
+                  <span className="emphasis">{oncoKbData.geneType}</span>. The
+                  variant was annotated as {oncoKbData.hgvsc}, p.
+                  {oncoKbData.aachange} [
                   <a href={oncoKbData.linkout} target="_blank">
-                    here
+                    Linkout
                   </a>
-                  ]
+                  ] and
                   <span className="emphasis">
                     {oncoKbData.hotspot === "True" ? " is" : " is not"} a
                     hotspot
