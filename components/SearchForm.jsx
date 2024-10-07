@@ -133,7 +133,7 @@ const SearchForm = ({ searchSetter }) => {
         <Row className="btn-row">
           <Button
             variant="secondary"
-            onClick={() => handleButtonClick(1, 861326, "C", "G")}
+            onClick={() => handleButtonClick(17, 7577538, "C", "T")}
           >
             SNV Example
           </Button>
