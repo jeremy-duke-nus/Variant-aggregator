@@ -10,7 +10,7 @@ const OncoKb = ({ searchData }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://0o7ehpwg62.execute-api.ap-southeast-1.amazonaws.com/prod/oncokb-v2?hgvsg=${searchData.notation}`
+        `https://3puvk2tojb.execute-api.ap-southeast-1.amazonaws.com/prod/OncoKb?hgvsg=${searchData.notation}`
       );
       const data = await response.json();
       if (data.error) {
