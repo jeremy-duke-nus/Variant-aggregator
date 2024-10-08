@@ -1,6 +1,5 @@
 import boto3
 import json
-import mysql.connector
 import os
 import urllib3
 
@@ -8,22 +7,20 @@ def get_oncokb_identifiers():
     """
     get list of RefSeq identifiers from oncokb database
     """
- 
-    database_host = os.environ['DATABASE_HOST']
-    database_name = os.environ['DATABASE_NAME']
-    database_password = os.environ['PASSWORD']
-    database_user = os.environ['USER']
+    s3 = boto3.resource('s3')
+    obj = s3.Object('variant-aggregator-v2','cancerGeneList_Athena.tsv')
     
-    connector = mysql.connector.connect(host = database_host,
-                                        user = database_user, 
-                                        password = database_password, 
-                                        database = database_name)
-    cursor = connector.cursor()
-    cursor.execute("SELECT refseq FROM oncokb")
-    refseq_ids = cursor.fetchall()
-    connector.close()
-    refseq_ids = [x[0] for x in refseq_ids]
-    return refseq_ids
+    data=obj.get()['Body'].read()
+    data = str(data).split('\\r\\n')
+    data = [str(x).split('\\t') for x in data]
+    dictionary = {}
+    refseq = []
+    for g in data:
+        if len(g) == 6:
+            dictionary[g[0]] = {'refseq': g[1].split('.')[0], 'description': g[5]}
+            refseq.append(g[1].split('.')[0])
+    return dictionary, refseq
+
 
 def get_vep_annotation(notation):
     """
@@ -106,46 +103,12 @@ def get_oncokb_result(consequence):
             return
     return
 
-def parse_oncokb_result(oncokb_result, aachange, gene, transcript, hgvsc):
-    nononcogene = ('ABI1,AFDN,AFF1,ARFRP1,ARNT,BCL11A,BCL2L2,CAMTA1,CARS1,'
-                    "CDX2,CEP43,CLTC,CREB3L1,CREB3L2,DDX10,DDX6,EML4,EPS15,EZR,FCGR2B,FCRL4,FOXO4,FSTL3,"
-                    "GAS7,GID4,GPHN,H4C9,HERPUD1,HEY1,HIP1,HLF,HOXA13,HOXA9,"
-                    "HOXC11,HOXC13,HOXD11,HOXD13,HSP90AB1,IGH,IGK,IGL,IL21R,ITK,"
-                    "KDSR,KIF5B,LASP1,LPP,LYL1,MLF1,MLLT6,MRTFA,MSN,MUC1,MYH9,NCOA2,"
-                    "NDRG1,NFKB2,NIN,NUMA1,PAFAH1B2,PBX1,PCM1,PDE4DIP,PER1,PICALM,PLAG1,"
-                    "POU2AF1,PRDM16,PRRX1,PSIP1,PTPRO,RABEP1,RAP1GDS1,RHOH,RNF213,RPL22,"
-                    "RPN1,RSPO2,SDC4,SH3GL1,SLC34A2,SRSF3,SSX1,SSX2,SSX4,TAF15,TAL2,"
-                    "TFG,TPM3,TPM4,TRIM24,TRIP11,USP6,ZBTB16,ZMYM2,ZNF384,ZNF521,"
-                    "ZNF703,ACSL3,ACSL6,ACTB,ACVR2A,ADGRA2,AFF3,APH1A,APOBEC3B,"
-                    "ASMTL,ASPSCR1,ATG5,ATP2B3,BAX,BCL9L,BTLA,BUB1B,CBLB,CBLC,CCDC6,CCN6,"
-                    "CCNB1IP1,CCT6B,CD36,CHCHD7,CHIC2,CHN1,CILK1,CKS1B,CLIP1,CLP1,CNBP,CNOT3,CPS1,"
-                    "CRTC1,CRTC3,CSF1,CYP17A1,DCTN1,DDR1,DUSP2,DUSP9,ELP2,EXOSC6,EXT2,FAF1,FAT4,"
-                    "FBXO31,FGF12,FIP1L1,FLYWCH1,FNBP1,GADD45B,GMPS,GOLGA5,GOPC,GTSE1,HNRNPA2B1,"
-                    "HOOK3,HOXA3,IKBKB,IKZF2,IL2,INPP5D,IRS4,JAZF1,KAT6B,KCNJ5,KDM2B,KDM4C,KLF6,KLK2,"
-                    "KNL1,KTN1,LCP1,LIFR,LMNA,LRIG3,LRRK2,MAGED1,MAML2,MAP3K6,MDS2,MIB1,MKNK1,MLLT11,MNX1,"
-                    "MTCP1,MYO18A,NAB2,NACA,NBEAP1,NCOA1,NCOA4,NFATC2,NFIB,NFKBIE,NOD1,NONO,NUTM2A,NUTM2B,"
-                    "NUTM2D,OLIG2,OMD,PAG1,PAK3,PARP2,PARP3,PASK,PATZ1,PC,PCLO,PCSK7,PDCD11,PHF1,POLQ,"
-                    "POU5F1,PPFIBP1,PPP1CB,PRCC,PRF1,PRSS8,PTK6,PTK7,PTPN6,PTPRB,PTPRC,PTPRK,RALGDS,"
-                    "RASGEF1A,RMI2,RNF217-AS1,RPL10,RSPO3,RUNX2,S1PR2,SALL4,SBDS,SEC31A,SEPTIN5,SEPTIN6,"
-                    "SEPTIN9,SERP2,SFPQ,SFRP4,SIX1,SLC1A2,SLC45A3,SMARCA1,SNCAIP,SND1,SNX29,SOCS2,SS18L1,"
-                    "STIL,STRN,TCEA1,TCF12,TEC,TERC,TFEB,TFPT,TFRC,TIPARP,TLL2,TMEM30A,TMSB4XP8,"
-                    "TNFRSF11A,TPR,TRIM33,"
-                    "TRRAP,TTL,TUSC3,TYRO3,WAS,WDCP,WDR90,WRN,XPA,YPEL5,YWHAE,YY1AP1,ZNF24,ZNF331").split(',')
+def parse_oncokb_result(oncokb_result, aachange, gene, transcript, hgvsc, genedictionary):
     if oncokb_result:
         status = oncokb_result.status
         data = json.loads(oncokb_result.data)
         if status == 200:
-            geneType = None
-            geneSummary = data['geneSummary']
-            if gene not in nononcogene:
-                geneType = 'known oncogene' 
-            if 'tumor suppressor' in geneSummary:
-                if not geneType:
-                    geneType = 'tumor suppressor'
-                else:
-                    geneType += ' & tumor suppressor'
-            if not geneType:
-                geneType = 'gene of other functions excluding oncogene & tumor suppressor'
+            geneType = genedictionary.get(gene, 'not in the list of genes from OncoKb')
             drugs = data["treatments"]
             drugs = [{"drug": x["drugs"][0]["drugName"], 
                         "indication": x['levelAssociatedCancerType']['mainType']['name'], 
@@ -155,7 +118,7 @@ def parse_oncokb_result(oncokb_result, aachange, gene, transcript, hgvsc):
                 'aachange': str(aachange),
                 'hgvsc': hgvsc,
                 'oncogenecity': str(data['oncogenic']),
-                'geneType': geneType,
+                'geneType': geneType['description'],
                 'transcript': transcript,
                 'hotspot': str(data['hotspot']),
                 'effect': str(data['mutationEffect']['knownEffect']),
@@ -188,7 +151,7 @@ def lambda_handler(event, context):
     }
     param = event["queryStringParameters"]
     notation = param['hgvsg']
-    refseq_ids = get_oncokb_identifiers()
+    gene_dictionary, refseq_ids = get_oncokb_identifiers()
     try:
         vep_annotations = get_vep_annotation(notation)
     except ValueError:
@@ -207,7 +170,7 @@ def lambda_handler(event, context):
     else:
         try:
             oncokb_response, aachange, genename = get_oncokb_result(oncokb_transcript)
-            status, oncokb_result = parse_oncokb_result(oncokb_response, aachange, genename, transcript, hgvsc)
+            status, oncokb_result = parse_oncokb_result(oncokb_response, aachange, genename, transcript, hgvsc, gene_dictionary)
         except TypeError:
             oncokb_result = [{'message': 'Variant not reported in oncoKb', "code":201}]
             status = 201
