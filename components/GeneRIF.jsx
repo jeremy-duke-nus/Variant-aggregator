@@ -44,6 +44,25 @@ const GeneRif = ({ searchData }) => {
             <Card.Body>
               <Card.Text>
                 <h2>{GeneRifData.gene}</h2>
+                <p className="reduced-space">
+                  <b>CKBoost website: </b>
+                  <a
+                    href={`https://ckbhome.genomenon.com/gene/show?geneId=${GeneRifData.gene_id}&tabType=GENE_VARIANTS`}
+                    target="_blank"
+                  >
+                    CKBoost Page
+                  </a>
+                </p>
+                <p className="reduced-space">
+                  <b>VarSome website: </b>
+                  <a
+                    href={`https://varsome.com/variant/hg19/${searchData.chromosome}-${searchData.position}-${searchData.reference}-${searchData.alternate}?annotation-mode=somatic`}
+                    target="_blank"
+                  >
+                    Varsome Page
+                  </a>
+                </p>
+                <hr />
                 <p className="reduced-space">{GeneRifData.summary}</p>
               </Card.Text>
             </Card.Body>
