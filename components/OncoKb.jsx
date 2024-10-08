@@ -59,7 +59,7 @@ const OncoKb = ({ searchData }) => {
               <Card.Text>
                 <br></br>
                 <p className="reduced-space">
-                  This variant is found in {oncoKbData.gene}, a{" "}
+                  This variant is found in {oncoKbData.gene}, {" "}
                   <span className="emphasis">{oncoKbData.geneType}</span>. The
                   variant was annotated as {oncoKbData.hgvsc}, p.
                   {oncoKbData.aachange} [
