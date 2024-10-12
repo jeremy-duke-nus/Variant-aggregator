@@ -18,12 +18,28 @@ const PRISM = ({ searchData }) => {
       );
       const data = await response.json();
       if (data.error) {
-        setPrismData(null);
+        setPrismData({
+          exists: "error",
+          query: {
+            chrom: searchData.chromosome,
+            position: searchData.position,
+            reference: searchData.reference,
+            variant: searchData.alternate,
+          },
+        });
       } else {
         setPrismData(data);
       }
     } catch (error) {
-      setPrismData(null);
+      setPrismData({
+        exists: "error",
+        query: {
+          chrom: searchData.chromosome,
+          position: searchData.position,
+          reference: searchData.reference,
+          variant: searchData.alternate,
+        },
+      });
     }
     setLoading(false);
   };
@@ -31,6 +47,7 @@ const PRISM = ({ searchData }) => {
   useEffect(() => {
     fetchPrismData(searchData);
   }, [searchData]);
+
   return (
     <div className="results">
       <div className="cards">
@@ -57,7 +74,9 @@ const PRISM = ({ searchData }) => {
                         <i>
                           {prismData.results.exists === "True"
                             ? "FOUND"
-                            : "NOT FOUND"}{" "}
+                            : prismData.results.exists === "False"
+                            ? "NOT FOUND"
+                            : "UNABLE TO BE FOUND DUE TO A SERVER ERROR"}{" "}
                         </i>
                       </span>
                     </b>

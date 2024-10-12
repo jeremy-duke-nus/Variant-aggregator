@@ -14,7 +14,7 @@ const OncoKb = ({ searchData }) => {
       );
       const data = await response.json();
       if (data.error) {
-        setOncoKbData(null);
+        setOncoKbData({});
       } else {
         if (data.code !== 401) {
           setOncoKbData(data[0]);
@@ -33,6 +33,7 @@ const OncoKb = ({ searchData }) => {
     fetchOncoKb(searchData);
   }, [searchData]);
 
+  console.log(oncoKbData);
   return (
     <div className="results">
       <div className="cards">
@@ -59,7 +60,7 @@ const OncoKb = ({ searchData }) => {
               <Card.Text>
                 <br></br>
                 <p className="reduced-space">
-                  This variant is found in {oncoKbData.gene}, {" "}
+                  This variant is found in {oncoKbData.gene},{" "}
                   <span className="emphasis">{oncoKbData.geneType}</span>. The
                   variant was annotated as {oncoKbData.hgvsc}, p.
                   {oncoKbData.aachange} [
