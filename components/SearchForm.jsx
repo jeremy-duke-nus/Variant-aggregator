@@ -29,6 +29,7 @@ const SearchForm = ({ searchSetter }) => {
       reference: "",
       alternate: "",
     });
+    console.log(formData);
     const validData = ConvertCoordinates(formData);
     searchSetter(validData);
   };
@@ -83,6 +84,17 @@ const SearchForm = ({ searchSetter }) => {
       <Form onSubmit={handleSubmit} className="form-center">
         <Row className="input-row">
           <Form.Label>Search for a variant</Form.Label>
+          {/*<Form.Group
+            as={Col}
+            controlId="input"
+            onChange={handleChange}
+            onBlur={handleChange}
+          >
+            <Form.Control
+              placeholder="chrom:pos:ref:alt"
+              value={formData.chromosome}
+            />
+          </Form.Group> */}
 
           <Form.Group
             as={Col}

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Row, Card } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+
 import AppHeader from "./components/Header";
-import SearchForm from "./components/SearchForm";
+import SearchForm from "./components/SearchFormV2";
 import SearchInformation from "./components/SearchInformation";
 import VEPAnnotations from "./components/FunctionalAnnotations";
 import GnomAD from "./components/GnomAD";
