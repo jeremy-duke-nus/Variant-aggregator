@@ -16,7 +16,6 @@ const ValidateCompleteFields = (searchData) => {
 }
 
 const ConvertCoordinates = (data) => {
-    console.log(data);
     const validData = {...data};
     if (validData.reference.length > 1){
         const delStart = parseInt(validData.position) + 1;

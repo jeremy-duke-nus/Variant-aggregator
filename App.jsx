@@ -53,21 +53,21 @@ function App() {
             ) : null}
           </Row>
 
-          <Row>
-            {searchData !== null ? <OncoKb searchData={searchData} /> : null}
-          </Row>
           <Row className="card-row">
             {searchData !== null ? <Clinvar searchData={searchData} /> : null}
           </Row>
 
-          <Row className="card-row"></Row>
-
           <Row>
-            {searchData !== null ? <Insilico searchData={searchData} /> : null}
+            {searchData !== null ? <OncoKb searchData={searchData} /> : null}
           </Row>
 
           <Row>
             {searchData !== null ? <GnomAD searchData={searchData} /> : null}
+          </Row>
+          <Row className="card-row"></Row>
+
+          <Row>
+            {searchData !== null ? <Insilico searchData={searchData} /> : null}
           </Row>
         </div>
 

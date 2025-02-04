@@ -41,39 +41,31 @@ const GnomADCards = (data) => {
           </Card.Text>
         </Card>
       </div>
+
       <br></br>
-      <Accordion>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>
-            <h2>Population breakdown</h2>
-          </Accordion.Header>
-          <Accordion.Body>
-            <div className="cards">
-              {data.data.populations.map((population, index) => {
-                return (
-                  <Card className={population.color}>
-                    <Card.Body>
-                      <Card.Title>{population.id}</Card.Title>
-                      <Card.Text>
-                        <h2 className="gnomad-af">
-                          <p className="reduced-space">
-                            <b>Exome AF:</b> {population.exome}
-                          </p>
-                        </h2>
-                        <h2 className="gnomad-af">
-                          <p className="reduced-space">
-                            <b>Genome AF:</b> {population.genome}
-                          </p>
-                        </h2>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                );
-              })}
-            </div>
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
+      <div className="cards">
+        {data.data.populations.map((population, index) => {
+          return (
+            <Card className={population.color}>
+              <Card.Body>
+                <Card.Title>{population.id}</Card.Title>
+                <Card.Text>
+                  <h2 className="gnomad-af">
+                    <p className="reduced-space">
+                      <b>Exome AF:</b> {population.exome}
+                    </p>
+                  </h2>
+                  <h2 className="gnomad-af">
+                    <p className="reduced-space">
+                      <b>Genome AF:</b> {population.genome}
+                    </p>
+                  </h2>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          );
+        })}
+      </div>
     </>
   );
 };
